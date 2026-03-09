@@ -1,5 +1,5 @@
 {
-    "name": "wotnak/twig-cs-fixer-drupal",
+    "name": "lullabot/twig-cs-fixer-drupal",
     "description": "Drupal specific rules for Twig CS Fixer.",
     "license": "MIT",
     "type": "library",
