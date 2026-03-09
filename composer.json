@@ -4,7 +4,7 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "php": ">=8.3",
+        "php": ">=8.2",
         "drupal/core": ">=10",
         "vincentlanglet/twig-cs-fixer": "^3.0.2",
         "webflo/drupal-finder": "^1.3"
