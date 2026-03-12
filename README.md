@@ -5,7 +5,7 @@
 ## Installation
 
 - [Install Twig CS Fixer](https://github.com/VincentLanglet/Twig-CS-Fixer?tab=readme-ov-file#installation)
-- `composer req --dev wotnak/twig-cs-fixer-drupal`
+- `composer req --dev lullabot/twig-cs-fixer-drupal`
 - In your Twig CS Fixer [configuration file](https://github.com/VincentLanglet/Twig-CS-Fixer/blob/main/docs/configuration.md) enable predefined Drupal specific config:
 
   ```php
