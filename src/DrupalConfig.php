@@ -9,9 +9,11 @@ use Drupal\Core\Template\TwigTransTokenParser;
 use Drupal\Core\Theme\ThemeManagerInterface;
 use DrupalFinder\DrupalFinderComposerRuntime;
 use TwigCsFixer\Config\Config;
+use TwigCsFixer\Rules\Variable\VariableNameRule;
 use TwigCsFixer\Rules\Whitespace\IndentRule;
 use TwigCsFixer\Standard\TwigCsFixer;
 use TwigCsFixerDrupal\Rules\Component\RequireComponentAttributesRule;
+use TwigCsFixerDrupal\Rules\Variable\DrupalVariableNameRule;
 
 /**
  * Drupal configuration.
@@ -55,6 +57,12 @@ class DrupalConfig {
       spaceRatio: 2,
       useTab: FALSE,
     ));
+
+    // Replace the default VariableNameRule with a Drupal-aware version that
+    // allows double underscores (__) in variable names, which is a common
+    // Drupal naming convention (e.g. BEM-style: lets_talk__base_class).
+    $ruleset->removeRule(VariableNameRule::class);
+    $ruleset->addRule(new DrupalVariableNameRule());
 
     // Add Drupal specific rules.
     $ruleset->addRule(new RequireComponentAttributesRule());
