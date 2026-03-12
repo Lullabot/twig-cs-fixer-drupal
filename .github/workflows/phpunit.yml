@@ -1,0 +1,33 @@
+name: PHPUnit
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - php-version: '8.2'
+            composer-flags: '--with "drupal/core:^10" --with "phpunit/phpunit:^9.6"'
+          - php-version: '8.3'
+            composer-flags: ''
+          - php-version: '8.4'
+            composer-flags: ''
+          - php-version: '8.5'
+            composer-flags: ''
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer update --no-interaction --prefer-dist ${{ matrix.composer-flags }}
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit
