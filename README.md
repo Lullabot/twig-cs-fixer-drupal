@@ -1,5 +1,8 @@
 # Twig CS Fixer Drupal
 
+[![Packagist Version](https://img.shields.io/packagist/v/lullabot/twig-cs-fixer-drupal)](https://packagist.org/packages/lullabot/twig-cs-fixer-drupal)
+[![CI](https://github.com/Lullabot/twig-cs-fixer-drupal/actions/workflows/phpunit.yml/badge.svg)](https://github.com/Lullabot/twig-cs-fixer-drupal/actions/workflows/phpunit.yml)
+
 [Drupal](https://www.drupal.org/) specific config for [Twig CS Fixer](https://github.com/VincentLanglet/Twig-CS-Fixer).
 
 ## Installation
