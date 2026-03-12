@@ -10,7 +10,7 @@ jobs:
       matrix:
         include:
           - php-version: '8.2'
-            composer-flags: '--with "drupal/core:~10.0"'
+            composer-flags: '--with "drupal/core:^10" --with "phpunit/phpunit:^9.6"'
           - php-version: '8.3'
             composer-flags: ''
           - php-version: '8.4'
