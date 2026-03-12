@@ -9,9 +9,22 @@
         "vincentlanglet/twig-cs-fixer": "^3.0.2",
         "webflo/drupal-finder": "^1.3"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0 || ^12.0"
+    },
     "autoload": {
         "psr-4": {
             "TwigCsFixerDrupal\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TwigCsFixerDrupal\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "drupal/core-composer-scaffold": false
         }
     }
 }
