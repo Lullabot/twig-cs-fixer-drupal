@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/Lullabot/twig-cs-fixer-drupal/compare/v2.2.0...v2.3.0) (2026-03-13)
+
+
+### Features
+
+* integrate infection for mutation testing ([#14](https://github.com/Lullabot/twig-cs-fixer-drupal/issues/14)) ([a5607b9](https://github.com/Lullabot/twig-cs-fixer-drupal/commit/a5607b97ed8cabe80dcfdbe418506b22356235d5))
+
 ## [2.2.0](https://github.com/Lullabot/twig-cs-fixer-drupal/compare/2.1.0...v2.2.0) (2026-03-12)
 
 
