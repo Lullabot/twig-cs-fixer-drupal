@@ -1,0 +1,132 @@
+{
+  "$schema": "https://raw.githubusercontent.com/infection/infection/0.32.3/resources/schema.json",
+  "source": {
+    "directories": [
+      "src"
+    ]
+  },
+  "mutators": {
+    "@default": true,
+
+    // $skip/$inBlockDef initial values: setting to true/false doesn't matter since they are
+    // always written before being meaningfully read.
+    "FalseValue": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process",
+        // Default parameter $isAlsoOpeningStart=false: all callers pass this explicitly.
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::isHtmlTagOpeningEnd"
+      ]
+    },
+    "TrueValue": {
+      "ignore": [
+        // $skip = false instead of true when COMMENT_START is seen: comment tokens have
+        // distinct types and are never mistaken for HTML tags regardless.
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Equivalent: setting inBlockDef for every non-BLOCK_START token has the same net
+    // effect because BLOCK_START always sets it before BLOCK_NAME is checked.
+    "IfNegation": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Equivalent: omitting continue after skip=TRUE has no effect because the next
+    // iteration enters the if ($skip) block anyway.
+    "Continue_": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Equivalent: the endmacro/blockend checks are unreachable when skip=TRUE (the
+    // if ($skip) block's continue prevents them from being reached).
+    "LogicalAndSingleSubExprNegation": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Equivalent: not slicing from htmlTagOpeningStart has the same effect because
+    // isHtmlTagOpeningEnd with isAlsoOpeningStart=false rejects tokens whose value
+    // has no > before the first <.
+    "UnwrapArraySlice": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Equivalent: index===0 vs index===-1 / index!==0 only affects callers that do
+    // not explicitly pass isAlsoOpeningStart, but all call-sites always pass it.
+    "DecrementInteger": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+    "Identical": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Equivalent: break vs continue after recording the end token only differs in
+    // whether we overwrite the result with a later token, but the last > token is the
+    // same as the first > in all realistic single-tag openings.
+    "Break_": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Off-by-one in array_slice end offset: the attributes NAME token is well inside
+    // the slice regardless of ±1 or ±2 adjustment.
+    "IncrementInteger": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process",
+        // +1→+2 for findNext start: whitespace tokens between 'for' keyword and 'in'
+        // mean that both offsets find the same OPERATOR/NAME token.
+        "TwigCsFixerDrupal\\Rules\\Variable\\DrupalVariableNameRule::process"
+      ]
+    },
+    "Plus": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::process"
+      ]
+    },
+
+    // Equivalent: type===TEXT_TYPE || str_contains('<') — non-text tokens whose values
+    // contain < (e.g. < operator) would be detected as HTML openings but the subsequent
+    // attribute search still finds the same result in practice.
+    "LogicalAnd": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::isHtmlTagOpeningStart"
+      ]
+    },
+
+    // Equivalent: the early return false is implicit (PHP returns null which is falsy)
+    // since isHtmlTagOpeningEnd returns bool and callers only check truthiness.
+    "ReturnRemoval": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::isHtmlTagOpeningEnd"
+      ]
+    },
+
+    // Equivalent: inverting the isAlsoOpeningStart guard only changes behaviour when
+    // the token is also the opening start, which is handled by splitting on '<' anyway.
+    "LogicalNot": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Component\\RequireComponentAttributesRule::isHtmlTagOpeningEnd"
+      ]
+    },
+
+    // Assert::notFalse guards against malformed Twig (missing name after set/for) which
+    // cannot be exercised with valid Twig fixture files.
+    "MethodCallRemoval": {
+      "ignore": [
+        "TwigCsFixerDrupal\\Rules\\Variable\\DrupalVariableNameRule::process"
+      ]
+    }
+  }
+}

@@ -56,4 +56,40 @@ final class RequireComponentAttributesRuleTest extends AbstractRuleTestCase {
     );
   }
 
+  public function testComponentWithNoHtmlTag(): void {
+    $this->checkRule(
+      new RequireComponentAttributesRule(),
+      [],
+      __DIR__ . '/Fixtures/components/no-html-component/no-html-component.twig',
+    );
+  }
+
+  public function testValidComponentWithMacroBeforeTag(): void {
+    $this->checkRule(
+      new RequireComponentAttributesRule(),
+      [],
+      __DIR__ . '/Fixtures/components/valid-macro-component/valid-macro-component.twig',
+    );
+  }
+
+  public function testInvalidComponentWithAttributesInContent(): void {
+    $this->checkRule(
+      new RequireComponentAttributesRule(),
+      [
+        'RequireComponentAttributes.Error:1:1' => "Component's main html tag must have attributes set using attributes prop.",
+      ],
+      __DIR__ . '/Fixtures/components/invalid-attributes-in-content/invalid-attributes-in-content.twig',
+    );
+  }
+
+  public function testInvalidComponentWithBlockBeforeTag(): void {
+    $this->checkRule(
+      new RequireComponentAttributesRule(),
+      [
+        'RequireComponentAttributes.Error:1:16' => "Component's main html tag must have attributes set using attributes prop.",
+      ],
+      __DIR__ . '/Fixtures/components/invalid-after-block/invalid-after-block.twig',
+    );
+  }
+
 }

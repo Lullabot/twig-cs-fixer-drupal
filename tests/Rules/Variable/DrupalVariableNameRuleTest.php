@@ -65,4 +65,12 @@ final class DrupalVariableNameRuleTest extends AbstractRuleTestCase {
     self::assertSame(['optionalPrefix' => '_'], $rule->getConfiguration());
   }
 
+  public function testIterableNameInForLoopIsNotValidated(): void {
+    $this->checkRule(
+      new DrupalVariableNameRule(),
+      [],
+      __DIR__ . '/Fixtures/valid_iterable.twig',
+    );
+  }
+
 }
