@@ -31,3 +31,33 @@ jobs:
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit
+
+  mutation-testing:
+    name: Mutation Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: xdebug
+
+      - name: Install Composer dependencies
+        run: composer update --no-interaction --prefer-dist
+
+      - name: Download Infection PHAR
+        run: |
+          wget https://github.com/infection/infection/releases/download/0.32.3/infection.phar
+          wget https://github.com/infection/infection/releases/download/0.32.3/infection.phar.asc
+
+      - name: Validate Infection PHAR
+        run: |
+          gpg --keyserver hkps://keys.openpgp.org --recv-keys C6D76C329EBADE2FB9C458CFC5095986493B4AA0
+          gpg --with-fingerprint --verify infection.phar.asc infection.phar
+          chmod +x infection.phar
+
+      - name: Run mutation testing
+        run: ./infection.phar --threads=max --min-msi=100 --min-covered-msi=100
