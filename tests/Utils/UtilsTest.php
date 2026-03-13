@@ -42,4 +42,19 @@ final class UtilsTest extends TestCase {
     self::assertTrue(Utils::isInComponentTemplate($token));
   }
 
+  public function testReturnsFalseForNonTwigFileInComponentsDirectory(): void {
+    // A non-.twig file inside a components dir, even with a matching .component.yml, returns false.
+    // The fixture has both with-yml.txt and with-yml.txt.component.yml (the computed name).
+    $path = __DIR__ . '/Fixtures/components/with-yml/with-yml.txt';
+    $token = new Token(Token::TEXT_TYPE, 1, 1, $path);
+    self::assertFalse(Utils::isInComponentTemplate($token));
+  }
+
+  public function testReturnsFalseForTwigFileNotInComponentsDirectoryWithYml(): void {
+    // A .twig file with a .component.yml but NOT inside a components/ directory.
+    $path = __DIR__ . '/Fixtures/no-components-dir/template.twig';
+    $token = new Token(Token::TEXT_TYPE, 1, 1, $path);
+    self::assertFalse(Utils::isInComponentTemplate($token));
+  }
+
 }
