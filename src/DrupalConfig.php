@@ -27,7 +27,11 @@ class DrupalConfig {
     $config->allowNonFixableRules();
 
     // Add drupal/core translation token parsers.
-    $config->addTokenParser(new TwigTransTokenParser());
+    // Skip if symfony/twig-bridge is installed, as StubbedEnvironment will
+    // auto-register its own TransTokenParser for the same "trans" tag.
+    if (!class_exists('\Symfony\Bridge\Twig\TokenParser\TransTokenParser')) {
+      $config->addTokenParser(new TwigTransTokenParser());
+    }
 
     // Add drupal/twig_tweak support.
     if (class_exists('\Drupal\twig_tweak\TwigTweakExtension')) {
