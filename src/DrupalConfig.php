@@ -7,7 +7,6 @@ namespace TwigCsFixerDrupal;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Template\TwigTransTokenParser;
 use Drupal\Core\Theme\ThemeManagerInterface;
-use Symfony\Bridge\Twig\TokenParser\TransTokenParser;
 use DrupalFinder\DrupalFinderComposerRuntime;
 use TwigCsFixer\Config\Config;
 use TwigCsFixer\Rules\Variable\VariableNameRule;
@@ -30,7 +29,7 @@ class DrupalConfig {
     // Add drupal/core translation token parsers.
     // Skip if symfony/twig-bridge is installed, as StubbedEnvironment will
     // auto-register its own TransTokenParser for the same "trans" tag.
-    if (!class_exists(TransTokenParser::class)) {
+    if (!class_exists('\Symfony\Bridge\Twig\TokenParser\TransTokenParser')) {
       $config->addTokenParser(new TwigTransTokenParser());
     }
 
