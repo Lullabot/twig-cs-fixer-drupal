@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.1](https://github.com/Lullabot/twig-cs-fixer-drupal/compare/v2.3.0...v2.3.1) (2026-06-25)
+
+
+### Bug Fixes
+
+* avoid duplicate trans tag when symfony/twig-bridge is installed ([#18](https://github.com/Lullabot/twig-cs-fixer-drupal/issues/18)) ([75167de](https://github.com/Lullabot/twig-cs-fixer-drupal/commit/75167de642f2e7a3fac906c2017e63408833d9b3))
+* **deps:** update dependency vincentlanglet/twig-cs-fixer to v4 ([#20](https://github.com/Lullabot/twig-cs-fixer-drupal/issues/20)) ([596c245](https://github.com/Lullabot/twig-cs-fixer-drupal/commit/596c24522ce9931fa5dbc4f822363c5eec005a00))
+
 ## [2.3.0](https://github.com/Lullabot/twig-cs-fixer-drupal/compare/v2.2.0...v2.3.0) (2026-03-13)
 
 
