@@ -6,7 +6,7 @@
     "require": {
         "php": ">=8.2",
         "drupal/core": ">=10",
-        "vincentlanglet/twig-cs-fixer": "^3.0.2",
+        "vincentlanglet/twig-cs-fixer": "^4.0.0",
         "webflo/drupal-finder": "^1.3"
     },
     "require-dev": {
